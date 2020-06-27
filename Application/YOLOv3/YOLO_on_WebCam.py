@@ -20,6 +20,12 @@ def draw_bounding_box(img, classes,colors,class_id, confidence, x, y, x_plus_w, 
 
     label = str(classes[class_id])
     color = colors[class_id]
+
+    #Extra code for marking midpoint
+    x_mid=(x+x_plus_w)//2
+    y_mid=(y+y_plus_h)//2
+    cv2.rectangle(img,(x_mid-1,y_mid-1),(x_mid+1,y_mid+1),color,2)
+    cv2.rectangle(img,(x_mid-2,y_mid-2),(x_mid+2,y_mid+2),color,2)
     
     cv2.rectangle(img, (x,y), (x_plus_w,y_plus_h), color, 2)
     cv2.putText(img, label, (x-10,y-10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 2)
