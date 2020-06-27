@@ -29,6 +29,10 @@ threshold=mean
 
 #Setting mask with mean as threshold
 mask=(gray>threshold)*1
+mask2=(mask*255).astype(np.uint8)
+
+
+cv2.imshow("Mask",mask2)
 
 gray[gray<mean]=0
 cv2.imshow("Grayscale Image After Mask",gray)
