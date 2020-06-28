@@ -44,15 +44,7 @@ for i in range(0,3):
 		image2[:,:,j]=image[:,:,j]*mask
 
 	cv2.imshow("Image with "+color[i]+" mask",image2)
-
-	continue
-
-
-	#cv2.imshow("Original Image After "+color[i]+" mask",image2)
-	break
-
 	
-
 
 cv2.waitKey(0)
 cv2.destroyAllWindows()
