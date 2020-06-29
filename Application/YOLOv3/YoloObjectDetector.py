@@ -11,7 +11,7 @@ def get_output_layers(net):
     return output_layers
 
 
-def draw_bounding_box(img, class_id, confidence, x, y, x_plus_w, y_plus_h):
+def draw_bounding_box(img, classes,colors,class_id, confidence, x, y, x_plus_w, y_plus_h):
 	# function to draw bounding box on the detected object with class name
     label = str(classes[class_id])
     color = colors[class_id]
@@ -102,13 +102,14 @@ for i in indices:
     w = box[2]
     h = box[3]
     
-    draw_bounding_box(image, class_ids[i], confidences[i], round(x), round(y), round(x+w), round(y+h))
+    draw_bounding_box(image, classes,colors,class_ids[i], confidences[i], round(x), round(y), round(x+w), round(y+h))
 
 # display output image    
 cv2.imshow("object detection", image)
 
 # wait until any key is pressed
 cv2.waitKey()
+
     
  # save output image to disk
 cv2.imwrite("object-detection.jpg", image)
