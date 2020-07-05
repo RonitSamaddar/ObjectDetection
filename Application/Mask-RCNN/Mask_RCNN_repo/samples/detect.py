@@ -8,6 +8,13 @@ import matplotlib
 import matplotlib.pyplot as plt
 import cv2
 
+import argparse
+ap=argparse.ArgumentParser()
+ap.add_argument('-i','--image',required=True,help='path for input file')
+args=ap.parse_args()
+
+
+
 # Root directory of the project
 ROOT_DIR = os.path.abspath("../")
 
@@ -74,7 +81,7 @@ class_names = ['BG', 'person', 'bicycle', 'car', 'motorcycle', 'airplane',
 
 
 # Load a random image from the images folder
-image = skimage.io.imread('sample.jpg')
+image = skimage.io.imread(args.image)
 
 # original image
 plt.figure(figsize=(12,10))
