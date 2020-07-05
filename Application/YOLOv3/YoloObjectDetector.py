@@ -1,7 +1,12 @@
 import cv2
 import argparse
 import numpy as np
+import skimage.io
+import matplotlib.pyplot as plt
 
+WEIGHTS_PATH="yolov3.weights"
+CONFIG_PATH="yolov3.cfg"
+TXT_PATH="yolov3.txt"
 
 
 def get_output_layers(net):
@@ -23,14 +28,8 @@ def draw_bounding_box(img, classes,colors,class_id, confidence, x, y, x_plus_w, 
 
 # Handling command line arguments
 ap = argparse.ArgumentParser()
-ap.add_argument('-w', '--weights', required=True,
-                help = 'pretrained yolo weights path')
-ap.add_argument('-co', '--config', required=True,
-                help = 'config file path')
 ap.add_argument('-i', '--image', required=True,
                 help = 'input image path')
-ap.add_argument('-cl', '--classes', required=True,
-                help = 'class names txt file path')
 args = ap.parse_args()
 
 
@@ -44,7 +43,7 @@ scale = 0.00392
 
 # Reading classes from txt file
 classes = None
-with open(args.classes, 'r') as f:
+with open(TXT_PATH, 'r') as f:
 	classes=[]
 	for line in f.readlines():
 		classes.append(line.strip())
@@ -54,7 +53,7 @@ with open(args.classes, 'r') as f:
 colors = np.random.uniform(0, 255, size=(len(classes), 3))
 
 # Reading pre-trained model and configuration
-net = cv2.dnn.readNet(args.weights, args.config)
+net = cv2.dnn.readNet(WEIGHTS_PATH, CONFIG_PATH)
 
 # Creating and setting input blob from image
 blob = cv2.dnn.blobFromImage(image, scale, (416,416), (0,0,0), True, crop=False)
@@ -105,14 +104,17 @@ for i in indices:
     draw_bounding_box(image, classes,colors,class_ids[i], confidences[i], round(x), round(y), round(x+w), round(y+h))
 
 # display output image    
-cv2.imshow("object detection", image)
+#cv2.imshow("object detection", image)
+plt.figure(figsize=(12,10))
+skimage.io.imshow(image)
+plt.show()
 
 # wait until any key is pressed
 cv2.waitKey()
 
     
  # save output image to disk
-cv2.imwrite("object-detection.jpg", image)
+#cv2.imwrite("object-detection.jpg", image)
 
 # release resources
 cv2.destroyAllWindows()
