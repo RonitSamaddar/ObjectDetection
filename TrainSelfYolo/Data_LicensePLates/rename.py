@@ -6,7 +6,7 @@ ap.add_argument('-t', '--target', required=True,
                 help = 'Target Path (Path where files to be renamed are in)')
 args = ap.parse_args()
 
-TARGET_PATH=args.target
+TARGET_PATH=args.target+'/'
 #TARGET_PATH="/media/ronit/DATA21/Programming/ObjectDetection/TrainSelfYolo/Data_LicensePLates/Google_Search/"
 DEST_PATH="/media/ronit/DATA21/Programming/ObjectDetection/TrainSelfYolo/Data_LicensePLates/Google_Search/"
 
